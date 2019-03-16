@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import com.desafio.greenmile.desafioGree.View.DiariaView.DadosDiarias;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Diaria implements Serializable {
@@ -19,6 +23,7 @@ public class Diaria implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull 
 	private LocalDateTime data;
 	@ManyToOne
 	private Usuario usuario;
@@ -29,6 +34,7 @@ public class Diaria implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	@JsonView(DadosDiarias.class)
 	public LocalDateTime getData() {
 		return data;
 	}
@@ -38,4 +44,5 @@ public class Diaria implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario=usuario;
 	}
+	
 }

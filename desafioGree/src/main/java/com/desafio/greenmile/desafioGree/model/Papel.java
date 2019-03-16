@@ -1,6 +1,8 @@
 package com.desafio.greenmile.desafioGree.model;
 
-public enum Papel{
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Papel implements GrantedAuthority{
     FUNCIONARIO("Funcionario"), SUPERVISOR("Supervisor");
     private String descricao;
 
@@ -11,6 +13,11 @@ public enum Papel{
     public String getDescricao() {
         return descricao;
     }
+
+	@Override
+	public String getAuthority() {
+		return this.name();
+	}
 
    
 }

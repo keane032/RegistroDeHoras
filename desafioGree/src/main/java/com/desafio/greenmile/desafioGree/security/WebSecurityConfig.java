@@ -14,6 +14,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.desafio.greenmile.desafioGree.model.Papel;
 import com.desafio.greenmile.desafioGree.repository.UsuarioRepository;
 
 @Configuration
@@ -26,8 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
-		.antMatchers(HttpMethod.POST, "/usuario").permitAll()
-//		.antMatchers("/usuario/todos").permitAll()
+		.antMatchers(HttpMethod.POST, "/login").permitAll()
+		.antMatchers("/usuario/todos").permitAll()
+		.antMatchers("/usuario/*/horas").permitAll()
 		.antMatchers("/swagger-ui.html").permitAll()
 		.antMatchers("/v2/api-docs","/configuration/ui",
                                    "/swagger-resources",
@@ -39,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()		
 		.addFilterBefore(new JWTLoginFilter("/login", authenticationManager(), usuarioRepository),
                 UsernamePasswordAuthenticationFilter.class)
-		.addFilterBefore(new JWTAuthenticationFilter(),
+		.addFilterBefore(new JWTAuthenticationFilter(this.usuarioRepository),
                 UsernamePasswordAuthenticationFilter.class);
 		httpSecurity.cors();
 	}

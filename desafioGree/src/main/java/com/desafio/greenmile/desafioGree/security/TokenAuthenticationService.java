@@ -1,5 +1,6 @@
 package com.desafio.greenmile.desafioGree.security;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
 import com.desafio.greenmile.desafioGree.model.Usuario;
 import com.desafio.greenmile.desafioGree.repository.UsuarioRepository;
@@ -26,10 +28,11 @@ public class TokenAuthenticationService {
 	static void addAuthentication(HttpServletResponse response, String email,UsuarioRepository repository) {
 		Claims claims = Jwts.claims().setSubject(email);
 		Usuario user = repository.findUsuarioByEmail(email);
-		System.out.println(user.getPapel());
+		
 		if (user != null) {
 			claims.put("role", user.getPapel());
-			System.out.println(user.getPapel());
+			claims.put("user_id", user.getId());
+			
 		}
 		String JWT = Jwts.builder()
 				.setClaims(claims)
@@ -40,7 +43,7 @@ public class TokenAuthenticationService {
 		response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
 	}
 	
-	static Authentication getAuthentication(HttpServletRequest request) {
+	static Authentication getAuthentication(HttpServletRequest request,UsuarioRepository repository) {
 		String token = request.getHeader(HEADER_STRING);
 		
 		if (token != null) {
@@ -49,7 +52,13 @@ public class TokenAuthenticationService {
 					.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
 					.getBody();
 			if (body != null && body.getSubject() != null) {
-				return new UsernamePasswordAuthenticationToken(body.getSubject(), null, Collections.emptyList());
+				Usuario user = repository.findUsuarioByEmail(body.getSubject());
+				Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
+				if(user != null) {
+					authorities = user.getAuthorities();
+				}
+
+				return new UsernamePasswordAuthenticationToken(body.getSubject(), null, authorities);
 			}
 		}
 		return null;
