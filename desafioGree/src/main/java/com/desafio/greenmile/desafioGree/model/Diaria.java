@@ -1,7 +1,7 @@
 package com.desafio.greenmile.desafioGree.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.desafio.greenmile.desafioGree.View.DiariaView.DadosDiarias;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
@@ -23,8 +24,11 @@ public class Diaria implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull 
-	private LocalDateTime data;
+	@NotNull
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate data;
+	@NotNull
+	private String horas;
 	@ManyToOne
 	private Usuario usuario;
 	
@@ -35,14 +39,20 @@ public class Diaria implements Serializable {
 		this.id = id;
 	}
 	@JsonView(DadosDiarias.class)
-	public LocalDateTime getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(LocalDateTime data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario=usuario;
 	}
-	
+	@JsonView(DadosDiarias.class)
+	public String getHoras() {
+		return horas;
+	}
+	public void setHoras(String horas) {
+		this.horas = horas;
+	}
 }

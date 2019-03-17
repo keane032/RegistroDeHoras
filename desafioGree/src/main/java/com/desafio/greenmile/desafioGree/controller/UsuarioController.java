@@ -31,15 +31,15 @@ public class UsuarioController {
 	
 	 @ApiOperation(
 	            value = "Cadastra um usuario",
-	            notes = "Este metodo faz a o Cadastro de um usuario no sistema passando nome, email,papel,nome e senha"
+	            notes = "Este metodo faz a o Cadastro de um usuario no sistema passando nome, "
+	            		+ "email,papel,nome e senha"
 	            		+ "a senha ja deve ser emcripitada com bcript"
 	            )
 	@PostMapping
 	@JsonView(UsuarioView.class)
 	private ResponseEntity<String> cadastrarUsuario(@RequestBody Usuario user ){
 		 
-		if (user != null) {
-			service.addUsuario(user);
+		if (user != null && service.addUsuario(user)) {
 			return new ResponseEntity<String>("",HttpStatus.CREATED);
 		}else {
 			return new ResponseEntity<String>("",HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,7 +60,9 @@ public class UsuarioController {
 	  
 	  @ApiOperation(
 	            value = "Adiciona horas ao usuario pelo id",
-	            notes = "Este metodo adiciona horas ao usuario pelo o id"
+	            notes = "Este metodo adiciona diarias ao usuario pelo o id, diarias "
+	            		+ "sao objetos com a data e a quantidade de horas"
+	            		+ "trabalhadas e o usuario que fez aqula diaria"
 	            )	
 	@PostMapping("/{id}/add")
 	@JsonView(UsuarioView.class)
@@ -81,8 +83,8 @@ public class UsuarioController {
 	private ResponseEntity<List<Diaria>> ListaHorasUsuario(@PathVariable Integer id){
 	
 		List<Diaria> diarias = service.getDiariasById(id); 
-		return new ResponseEntity<List<Diaria>>(diarias,HttpStatus.OK);
-	
+			return new ResponseEntity<List<Diaria>>(diarias,HttpStatus.OK);
+		
 	}
 
 }

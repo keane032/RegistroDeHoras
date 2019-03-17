@@ -21,7 +21,8 @@ public class UsuarioService {
 	private DiariaRepository diariaRepository;
 	
 	public boolean addUsuario(Usuario usuario) {
-		if (usuario != null) {
+		Usuario usuario2 = uRepo.findUsuarioByEmail(usuario.getEmail());
+		if (usuario != null && usuario2 == null) {
 			uRepo.save(usuario);
 			return true;
 		}
@@ -33,15 +34,17 @@ public class UsuarioService {
 	}
 	
 	public List<Diaria> getDiariasById(Integer id){ 
+		if (uRepo.existsById(id)) {
 		Usuario usuario = uRepo.findUsuarioById(id);
-		
-			return usuario.getDiarias();
-		
+		return usuario.getDiarias();
+		}
+		return null;
 	}
 	
 	public boolean adicionarHoras(Integer id, Diaria date) {
-		Usuario usuario = uRepo.getOne(id);
-		if(usuario != null) {
+		
+		if(uRepo.existsById(id)) {
+			Usuario usuario = uRepo.getOne(id);
 			date.setUsuario(usuario);
 			usuario.addDiaria(date);
 			diariaRepository.save(date);

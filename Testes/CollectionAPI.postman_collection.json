@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "5ac31d25-c274-46c3-a867-61675fa8324e",
+		"name": "CollectionAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "543ba269-888d-47a6-b7d1-185397c249c7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Usuario logado\"] = responseCode.code === 200"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"royke@gmail.com\",\n\t\"password\":\"12345\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Logar o sistema "
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb24e4cc-5bb5-4dd6-a6a4-aab1b462d2db",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Usuario criado\"] = responseCode.code === 201 "
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb3lrZUBnbWFpbC5jb20iLCJyb2xlIjoiU1VQRVJWSVNPUiIsInVzZXJfaWQiOjEsImV4cCI6MTU1MzM4MDUwN30.2mojsTUl1wmUp4QopcEohHLJJmLEKG509knFX_uF9YO3jvx8aMy11J8Iuw93IrimrUfAm9k93FNvhCNwl2lbgw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"nome\": \"roy\",\n        \"email\": \"ravila@gmail.com\",\n        \"senha\": \"$2a$10$bbuTyFuD2/g7vavjSfFNKeHXESGtHUJkH9MBbKqm7OewZWHCnQye.\",\n        \"papel\": \"FUNCIONARIO\"\n    }\n"
+				},
+				"url": {
+					"raw": "localhost:8080/usuario",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				},
+				"description": "Cadastra usuario no sitema"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb24e4cc-5bb5-4dd6-a6a4-aab1b462d2db",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Usuario criado\"] = responseCode.code === 201 "
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb3lrZUBnbWFpbC5jb20iLCJyb2xlIjoiU1VQRVJWSVNPUiIsInVzZXJfaWQiOjEsImV4cCI6MTU1MzM4MDUwN30.2mojsTUl1wmUp4QopcEohHLJJmLEKG509knFX_uF9YO3jvx8aMy11J8Iuw93IrimrUfAm9k93FNvhCNwl2lbgw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"nome\": \"roy\",\n        \"email\": \"royke@gmail.com\",\n        \"senha\": \"$2a$10$bbuTyFuD2/g7vavjSfFNKeHXESGtHUJkH9MBbKqm7OewZWHCnQye.\",\n        \"papel\": \"SUPERVISOR\"\n    }\n"
+				},
+				"url": {
+					"raw": "localhost:8080/usuario",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario"
+					]
+				},
+				"description": "Cadastra usuario(Supervisor) no sitema"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/usuario/1/add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a56d8817-03ec-48b4-8e58-58fd1c796b17",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Adicionado com Sucesso\"] = responseCode.code === 201 "
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb3lrZUBnbWFpbC5jb20iLCJyb2xlIjoiU1VQRVJWSVNPUiIsInVzZXJfaWQiOjEsImV4cCI6MTU1MzM4MDUwN30.2mojsTUl1wmUp4QopcEohHLJJmLEKG509knFX_uF9YO3jvx8aMy11J8Iuw93IrimrUfAm9k93FNvhCNwl2lbgw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"data\": \"2019-03-15\",\n      \"horas\": \"05:00:00\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/usuario/1/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"1",
+						"add"
+					]
+				},
+				"description": "Adiciona uma diaria no usuario de id 1"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/usuario/1/horas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff8948e8-99a4-42d1-acbd-0106ac2d802a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Listado Com Sucesso\"] = responseCode.code === 200"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/usuario/1/horas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"1",
+						"horas"
+					]
+				},
+				"description": "Retorna as horas do usuario de id numero 1"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/usuario/todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc27b61c-eea9-4555-82e3-c1f44a70f2ec",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Lisatado com sucesso\"] = responseCode.code === 200 "
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/usuario/todos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"todos"
+					]
+				},
+				"description": "Lista todos os usuarios \n"
+			},
+			"response": []
+		}
+	]
+}
