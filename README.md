@@ -21,4 +21,4 @@ um usuário logado.
 3.2. Todas as requests de leitura (1.2, 2.1) podem ser realizadas por usuários
 anônimos.
 
-3.3. Utilizar JWT (https://jwt.io/) para autenticação.
+3.3. Utiliza JWT (https://jwt.io/) para autenticação.
